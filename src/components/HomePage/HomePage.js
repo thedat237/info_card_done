@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { Button } from 'react-bootstrap'
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import AuthContext from '../../context/auth'
 import RequireAuth from '../Auth/RequireAuth'
@@ -8,26 +7,22 @@ import Banner02 from './Banner/Banner02'
 import Banner03 from './Banner/Banner03'
 import Banner04 from './Banner/Banner04'
 import Banner05 from './Banner/Banner05'
+import Banner06 from './Banner/Banner06'
 
 export default function HomePage() {
     const authCtx = useContext(AuthContext)
     return (
         <div>
-            <div>
-                <Banner01/>
-            </div>
+            <Banner01/>
             <div className='my-5'>
                 <Banner02/>
             </div>
-            <div>
-                <Banner05/>
-            </div>
-            <div>
-                <Banner03/>
-            </div>
+            <Banner06 />
+            <Banner03 />
+            <Banner04 />
             <div>
                 <RequireAuth mode="hidden">
-                    <Banner04/>
+                    <Banner05/>
                 </RequireAuth>
             </div>
             {

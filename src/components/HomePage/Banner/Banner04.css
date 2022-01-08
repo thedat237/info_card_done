@@ -1,46 +1,45 @@
-.demo-card-img{
-    width: 500px;
+.banner-step {
+    background-color: #020A11;
 }
-.demo-card{
-    position: relative;
+
+.step-card-img {
+    width: 600px;
 }
-.form-demo-card{
-    width: 50%;
-    /* margin-left: 30px; */
+
+.step-infor {
+    display: flex;
+    justify-content: space-between;
+    border: none !important;
+    box-shadow: none !important;
 }
-.demo-card-qr{
-    position: absolute;
-    top: 15px;
-    left: 17px;
-    border: 2px solid white;
-    border-radius: 16px;
+
+.step-phone-img {
+    width: 200px;
+    border-radius: 20px;
 }
-.demo-card-name{
-    position: absolute;
-    color: white;
-    top: 246px;
-    left: 22px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 33px;
+
+.step-text {
+    font-weight: 700;
+    line-height: inherit;
 }
-.card-demo-luxury{
-    width: 100px;
+
+/* .banner-step{
+    background-color: #020A11;
 }
-.avatrUrl{
-    width: 80px;
-    height: 80px;
+.step-card-img{
+    transform: translateX(50px);
+    width: 600px;
+}
+.step-infor{
+    width: 45%;
+}
+.step-phone-img{
+    width: 220px;
+}
+/* .step-phone-img:not(:first-child){
+    margin-left: 50px;
+} */
+/* .banner-social{
+    height: 600px;
     object-fit: cover;
-}
-.border-avatarUrl{
-    display: inline-block;
-    border: 3px solid transparent;
-    border-radius: 50px;
-    background: 
-        linear-gradient(to right, white, white), 
-        linear-gradient(to right, #275852 , #471926) ;
-    background-clip: padding-box, border-box;
-    background-origin: padding-box, border-box;
-    padding: 2px;
-}
+} */ 

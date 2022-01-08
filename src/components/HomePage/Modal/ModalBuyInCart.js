@@ -1,26 +1,27 @@
-import React, {useState} from 'react'
+import { useState } from 'react'
 import "./ModalBuyInCart.css"
 import { Modal, Button } from 'react-bootstrap'
 import { connect, useDispatch } from 'react-redux'
-import { BUYPRODUCT, UPDATECART } from '../../../redux/reducer/cart'
+import { UPDATECART } from '../../../redux/reducer/cart'
 import { SAVECART } from '../../../redux/reducer/infor'
 
 const ModalBuyInCart = (props) => {
-    const userInfor= JSON.parse(localStorage.getItem("dataQR"))
-    const dispatch = useDispatch()
     const [valueModal, setValueModal] = useState({
         email: "",
         phoneNumber: "",
         address: ""
     })
-
-    const onChange = (event) => {
-        const newValue = event.target.value
-        const field = event.target.name
-        setValueModal((prev) => {
+    
+    const userInfor= JSON.parse(localStorage.getItem("dataQR"))
+    const dispatch = useDispatch()
+    
+    const onChange = e => {
+        const newValue = e.target.value
+        const field = e.target.name
+        setValueModal(prev => {
             return {
                 ...prev,
-                [field] : newValue
+                [field]: newValue
             }
         })
     }
@@ -114,8 +115,10 @@ const ModalBuyInCart = (props) => {
         </Modal>
     )
 }
-const maptoStatetoProps = (state) => ({
+
+const maptoStatetoProps = state => ({
     Cart: state.Cart.product,
     ShoppingCart: state.Cart.cart
 })
+
 export default connect(maptoStatetoProps, null)(ModalBuyInCart)

@@ -15,7 +15,7 @@ const Infor = createSlice({
     name: 'Info',
     initialState: initStore,
     reducers: {
-        SAVECART(state, action){
+        SAVECART (state, action) {
             // console.log('action payload', action.payload)
             // state.nameUser = action.payload.nameUser
             // state.avatarUrl = action.payload.avatarUrl
@@ -27,18 +27,19 @@ const Infor = createSlice({
             let result=state.data
             console.log("save cart", action.payload);
             console.log(typeof action.payload === "object");
-            if(typeof action.payload === "object"){
+            if (typeof action.payload === "object") {
                 result.push(action.payload)
             } else {
                 result=[...action.payload]
-
             }
             state.data = [...result]
         },
-        RESETCART(state, action){
+
+        RESETCART (state, action) {
             state.data=[]
         },
-        UPDATESHOPPINGSUCCESS(state, action){
+
+        UPDATESHOPPINGSUCCESS (state, action) {
             state.data=[...action.payload]
             console.log(state.data);
         }

@@ -1,5 +1,4 @@
-import React from 'react'
-import { InputGroup, DropdownButton,  Dropdown, FormControl} from 'react-bootstrap'
+import { InputGroup, DropdownButton, Dropdown, FormControl } from 'react-bootstrap'
 import socialNetWork from '../../data/socialNetWork'
 
 export default function DropDownLink(props) {
@@ -10,10 +9,9 @@ export default function DropDownLink(props) {
                 // title={renderName}
                 title={props.title}
             >
-                {socialNetWork.map((items, idx) => (
+                {socialNetWork.map(items => (
                     <Dropdown.Item 
-                        key={idx} 
-                        href="#" 
+                        key={items.id} 
                         onClick={() => props.onClick(items)}
                     >
                         {items.name}

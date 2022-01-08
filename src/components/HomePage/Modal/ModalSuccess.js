@@ -1,30 +1,31 @@
-import React, {useContext, useState} from 'react'
+import { useContext, useState } from 'react'
 import "./ModalSuccess.css"
 import { Modal, Button } from 'react-bootstrap'
 import { connect, useDispatch } from 'react-redux'
-import { BUYPRODUCT, UPDATECART } from '../../../redux/reducer/cart'
+import { UPDATECART } from '../../../redux/reducer/cart'
 import { SAVECART } from '../../../redux/reducer/infor'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../../context/auth'
 
 const ModalSuccess = (props) => {
-    const data=JSON.parse(localStorage.getItem("dataQR"))
-    const authCtx = useContext(AuthContext)
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
     const [valueModal, setValueModal] = useState({
         email: "",
         phoneNumber: "",
         address: ""
     })
-
-    const onChange = (event) => {
-        const newValue = event.target.value
-        const field = event.target.name
-        setValueModal((prev) => {
+    
+    const authCtx = useContext(AuthContext)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const data=JSON.parse(localStorage.getItem("dataQR"))
+    
+    const onChange = e => {
+        const newValue = e.target.value
+        const field = e.target.name
+        setValueModal(prev => {
             return {
                 ...prev,
-                [field] : newValue
+                [field]: newValue
             }
         })
     }
@@ -133,9 +134,11 @@ const ModalSuccess = (props) => {
         </Modal>
     )
 }
-const maptoStatetoProps = (state) => ({
+
+const maptoStatetoProps = state => ({
     Infor: state.Infor.data,
     Cart: state.Cart.product,
     ShoppingCart: state.Cart.cart
 })
+
 export default connect(maptoStatetoProps, null)(ModalSuccess)

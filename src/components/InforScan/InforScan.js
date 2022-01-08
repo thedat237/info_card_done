@@ -1,25 +1,25 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import "./InforScan.css"
 import BannerInfoScan4 from "../../assets/banner_info_scan4.png"
-import QRCode from "qrcode.react"
+// import QRCode from "qrcode.react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import facebook from "../../assets/socialLogo_facebook.png"
-import instagram from "../../assets/socialLogo_instagram.png"
-import email from "../../assets/socialLogo_email.png"
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+// import facebook from "../../assets/socialLogo_facebook.png"
+// import instagram from "../../assets/socialLogo_instagram.png"
+// import email from "../../assets/socialLogo_email.png"
 import AuthContext from '../../context/auth'
 import { connect, useDispatch } from 'react-redux'
 import { RESETCART, UPDATESHOPPINGSUCCESS } from '../../redux/reducer/infor'
 import { useNavigate } from 'react-router-dom'
 
-const socialLogo = {
-    Facebook: facebook,
-    Instagram: instagram,
-    Email: email
-}
+// const socialLogo = {
+//     Facebook: facebook,
+//     Instagram: instagram,
+//     Email: email
+// }
 
 
-const InforScan = ({Infor}) => {
+const InforScan = ({ Infor }) => {
     const dataShoppingSuccess=JSON.parse(localStorage.getItem("shoppingSuccess"))
     console.log("data", dataShoppingSuccess);
     const authCtx = useContext(AuthContext)
@@ -50,7 +50,7 @@ const InforScan = ({Infor}) => {
                 console.log("abc", item);
             return <div className='d-flex justify-content-between align-items-center' key={idx}>
                     <div className='demo-card'>
-                        <img src={item?.nameCard} className='demo-card-img'/>
+                        <img src={item?.nameCard} className='demo-card-img' alt='img'/>
                         {/* <QRCode 
                             className="scanned-qr"  
                             size={100}
@@ -64,10 +64,10 @@ const InforScan = ({Infor}) => {
                         <h6 className='demo-card-name'>{item?.nameUser}</h6>
                     </div>
                     <div className='position-relative'>
-                        <img src={BannerInfoScan4} className="img-info-scan"/>
+                        <img src={BannerInfoScan4} className="img-info-scan" alt='img'/>
                         <div className='line'></div>
                         <div className='border-avatarUrl position-absolute border-scanned'>
-                            <img src={item?.avatarUrl} className='scanned-avatar'/>
+                            <img src={item?.avatarUrl} className='scanned-avatar' alt='img'/>
                         </div>
                         <div className='header-name'>
                             <h4 className='scanned-name text-dark'>{item?.nameUser}</h4>

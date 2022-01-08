@@ -1,20 +1,18 @@
-.banner-step{
-    background-color: #020A11;
+.step {
+    background-color: #020a11;
+    color: #FFFFFF;
+    /* margin: 20px 0; */
+    padding: 20px 0;
+    border: none !important;
+    box-shadow: none !important;
 }
-.step-card-img{
-    transform: translateX(50px);
-    width: 600px;
+
+.step-details {
+    text-align: center;
 }
-.step-infor{
-    width: 45%;
-}
-.step-phone-img{
-    width: 220px;
-}
-/* .step-phone-img:not(:first-child){
-    margin-left: 50px;
-} */
-.banner-social{
-    height: 600px;
-    object-fit: cover;
+
+.step-line {
+    border-top: 3px solid white;
+    width: 150px;
+    margin: 10px auto;
 }
