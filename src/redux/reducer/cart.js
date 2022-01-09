@@ -17,8 +17,8 @@ const Cart = createSlice({
         REMOVEPRODUCT (state, action) {
             let result = state.product.filter(items => items.id !== action.payload)
             state.product = [...result]
-            state.items=state.product.length
-            let data=JSON.parse(localStorage.getItem("Cart"))
+            state.items = state.product.length
+            let data = JSON.parse(localStorage.getItem("Cart"))
             if (data.length === 1) {
                 localStorage.removeItem("Cart")
             } else {
