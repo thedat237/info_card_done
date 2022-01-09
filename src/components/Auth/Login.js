@@ -30,20 +30,20 @@ export default function Login() {
         return <Navigate to={`/`} replace={true} />
     }
 
-    return (
-        <div className='bg-auth'>
-            <section className='Form'>
-                <div className='container py-3'>
-                    <div className='row '>
-                        <div className='col-lg-5 p-0'>
-                            <img src={bannerPeople} className='img-fluid login-img' alt='img'/>
+    return ( 
+        <div className='bg-dark'>
+            <section className='Form py-5'>
+                <div className='container'>
+                    <div className='row'>
+                        <div className='col-lg-5 col-md-5 col-sm-5 img'>
+                            <img src={bannerPeople} className='login-img .d-none .d-sm-block' alt='img'/>
                         </div>
-                        <div className='col-lg-7 mt-3'>
+                        <div className='col-lg-7 col-md-7 col-sm-7 mt-3 col-sm-12'>
                             <h1 className='fw-bold py-3'>Login</h1>
                             <h4>Sign into your account</h4>
                             <form className='my-5' onSubmit={onLoginSubmit}> 
                                 <div className='form-row'>
-                                    <div className='col-lg-7'>
+                                    <div className='col-lg-12'>
                                         <input  
                                             placeholder='Email-Address'
                                             className='form-control my-3 p-3'
@@ -52,8 +52,8 @@ export default function Login() {
                                         />
                                     </div>
                                 </div>
-                                <div className='form-row mb-5'>
-                                    <div className='col-lg-7'>
+                                <div className='form-row'>
+                                    <div className='col-lg-12'>
                                         <input type="password" 
                                             placeholder='Enter your password' 
                                             className='form-control my-3 p-3'
@@ -63,7 +63,7 @@ export default function Login() {
                                     </div>
                                 </div>
                                 <div className='form-row'>
-                                    <div className='col-lg-7'>
+                                    <div className='col-lg-12'>
                                         <button className='btn1'>
                                             Login
                                         </button>

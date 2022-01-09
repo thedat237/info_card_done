@@ -1,13 +1,35 @@
+.body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    padding: 10px;
+}
 .row{
     background-color: white;
     border-radius: 16px;
     box-shadow: 3px 3px 12px grey;
+    padding: 25px 30px;
 }
 .login-img{
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
-
+    width: 100%;
 }
+@media (max-width: 770px) {
+    .login-img {
+        display: none;
+    }
+}
+@media (min-width:580px) and (max-width: 1000px) {
+    .form-row {
+        margin-top: 30px;
+    }
+    .login-img{
+        margin: auto 0;
+    }
+}
+
+
 .btn1{
     border: none;
     outline: none;
