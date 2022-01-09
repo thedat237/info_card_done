@@ -42,7 +42,7 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
         result[result.length - 1].socialName = item.name
         console.log(result);
         console.log("item", item);
-        setSocialName(result)
+        setSocialName(result[result.length - 1].socialName)
     }
     
     const handleBuyItems = () => {
