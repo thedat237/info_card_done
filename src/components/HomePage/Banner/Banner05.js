@@ -6,7 +6,7 @@ import QRCode from "qrcode.react"
 // import logoScan from "../../../assets/logo_scan.png"
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../../context/auth'
-// import { Dropdown, FormControl, InputGroup, DropdownButton, Modal, Button } from "react-bootstrap"
+import { Dropdown, FormControl, InputGroup, DropdownButton, Button } from "react-bootstrap"
 import socialNetWork from '../../../data/socialNetWork'
 import ModalSuccess from '../Modal/ModalSuccess'
 import ModalEmptyInput from '../Modal/ModalEmptyInput'
@@ -21,7 +21,9 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
     const [name, setName] = useState("")
     const [avatarUrl, setAvatarUrl] = useState("")
     const [overview, setOverview] = useState("")
-    const [socialName, setSocialName] = useState(socialNetWork[0].name)
+    const [listSocials, setListSocials] = useState([])
+    const [socialName, setSocialName] = useState('')
+    const [socialLink, setSocialLink] = useState('')
     const [socials, setSocials] = useState([
         {socialName: socialName, socialLink: ""},
     ])
@@ -32,6 +34,7 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
         return storageInfoQR
     })
     const [showModal, setShowModal] = useState(false);
+
 
     const authCtx = useContext(AuthContext)
     const navigate = useNavigate()
@@ -64,18 +67,28 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
     const onChangeAvatar = e => {
         const fileAvatar = e.target.files[0]
         fileAvatar.preview = URL.createObjectURL(fileAvatar)
-        setAvatarUrl(fileAvatar) 
+        setAvatarUrl(fileAvatar)
     }
 
-    const handleChangeSocial = (id, e) => {
-        console.log(e.target.value);
-        const values = [...socials]
-        values[id][e.target.name] = e.target.value
-        setSocials(values)
+    const handleChangeSocial = e => {
+        setSocialLink(e.target.value)
     }
 
-    const handleAddSocial = () => {
-        setSocials([...socials, {socialName:socialName, socialLink: ""}])
+    const handleSelect = name => {
+        setSocialName(name)
+    }
+
+    const handleAddSocial = e => {
+        e.preventDefault()
+        setListSocials([
+            ...listSocials,
+            { 
+                name: socialName,
+                link: socialLink
+            }
+        ])
+        setSocialName('')
+        setSocialLink('')
     }
 
     useEffect(() => {
@@ -118,8 +131,8 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
         setShowModal(true)
     }
 
-    const all = (event, typeButton) => {
-        let data = onSubmitForm(event)
+    const all = (e, typeButton) => {
+        let data = onSubmitForm(e)
         if (typeButton === 1) {
             addToCart(data)
         } else {
@@ -145,6 +158,7 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
             qrImage: imageQRcode,
             social: (socials[0].socialLink === "" ? [] : socials)
         }
+        console.log(newData)
         return newData
     }
 
@@ -259,28 +273,52 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                                 </div>
                             </div>
                             <div className='w-100 d-flex flex-column align-items-end'>
-                                {socials?.map((social, idx) =>
-                                    <>
-                                        <DropDownLink 
-                                            key={idx}
-                                            title={social.socialName} 
-                                            onClick={handleSelectSocial} 
-                                            valueLink={social.socialLink} 
-                                            onChangeLink={e => handleChangeSocial(idx, e)}
-                                            nameInput="socialLink"
+                                {
+                                    listSocials.map((item, idx) => {
+                                        return (
+                                            <div key={idx} className='w-100 d-flex flex-row mt-1'>
+                                                <Button disabled className='btn-social-disable'>{item.name}</Button>
+                                                <input 
+                                                    type='text' 
+                                                    value={item.link} 
+                                                    disabled 
+                                                    className='w-100 ms-1 form-control'
+                                                />
+                                            </div>
+                                        )
+                                    })
+                                }
+                                <div className="mb-3 w-100">
+                                    <InputGroup className='mt-3'>
+                                        <DropdownButton
+                                            variant="outline-secondary"
+                                            title={socialName || 'Choose'}
+                                            onSelect={handleSelect}
+                                        >
+                                            {socialNetWork.map(item => (
+                                                <Dropdown.Item 
+                                                    key={item.id} 
+                                                    eventKey={item.name}
+                                                >
+                                                    {item.name}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                        <FormControl 
+                                            name="socialLink" 
+                                            value={socialLink} 
+                                            onChange={handleChangeSocial}
                                         />
-                                        {socials.length - 1 === idx && 
-                                            <button 
-                                                className='btn btn-primary' 
-                                                onClick={handleAddSocial}
-                                            >
-                                                Thêm mạng xã hội
-                                            </button>
-                                        }
-                                    </>
-                                )}
+                                    </InputGroup>
+                                    
+                                    <button 
+                                        className='btn btn-primary mt-3' 
+                                        onClick={handleAddSocial}
+                                    >
+                                        Thêm Link cá nhân
+                                    </button>
+                                </div>
                             </div>
-                            {/* {imageUrlAvatar && <img src={imageUrlAvatar.preview} width="20%" height="20%"/>} */}
                             <div className='d-flex justify-content-between align-items-center w-100'>
                                 <div className='d-flex'>
                                     <p className='fw-bold fs-3 '>159,000đ</p>
