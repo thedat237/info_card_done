@@ -21,26 +21,33 @@ import { faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons'
 
 function App() {
   const [authUser, setAuthUser] = useState(null)
-  const [checkingAuthUserDone, setCheckingAuthUserDone] = useState(false)
+  // const [checkingAuthUserDone, setCheckingAuthUserDone] = useState(false)
   const [showGoToTop, setShowGoToTop] = useState(false)
   
+  const config = {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Credentials": true,
+    }
+  }
+
   useEffect(() => {
-    axios.get("/auth/login/success", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
+    axios.get('/auth/login/success', config)
     .then((response) => {
       setAuthUser(response.data);
     })
     .catch((err) => {
       console.log(err);
     })
-    .finally(() => {
-      setCheckingAuthUserDone(true);
-    });
+
+    axios.get('/auth/login/oauth', config)
+    .then(res => {
+      if (authUser === null) {
+        setAuthUser(res.data)
+      }
+    })
+    .catch(err => console.log(err))
   }, [])
 
   const handleGoToTop = () => {
@@ -63,11 +70,11 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
   
-  if(!checkingAuthUserDone) {
-    return (
-      <div className='d-flex justify-content-center align-items-center' >Checking signed-in user status ...</div>
-    )
-  }
+  // if(!checkingAuthUserDone) {
+  //   return (
+  //     <div className='d-flex justify-content-center align-items-center' >Checking signed-in user status ...</div>
+  //   )
+  // }
  
   return (
     <Provider store={store}>

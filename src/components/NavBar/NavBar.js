@@ -18,10 +18,11 @@ const NavBar = ({ Infor, CartItems, CartProduct }) => {
     const [showModalCart,setShowModalCart] =useState(false)
     const [showModalBuyCart, setShowModalBuyCart] = useState(false)
     const [clicked, setClicked] = useState(false)
+
     const authCtx = useContext(AuthContext)
     const dispatch = useDispatch()
-    
-    // const dataShoppingSuccess = JSON.parse(localStorage.getItem("shoppingSuccess")) || []
+
+    const dataShoppingSuccess = JSON.parse(localStorage.getItem("shoppingSuccess")) || []
 
     const updateCart = () => {
         const dataCart = JSON.parse(localStorage.getItem("Cart"))
@@ -73,17 +74,29 @@ const NavBar = ({ Infor, CartItems, CartProduct }) => {
                     Hướng dẫn
                 </NavLink>
                 <NavLink 
-                    to={authCtx.user ? `/tao-the/${authCtx.user._id}` : '/login'} 
-                    className='navigation-bars__menu__navlink'
+                    to={`/tao-the/${authCtx.user?._id}`} 
+                    className={authCtx.user ? 'navigation-bars__menu__navlink' : 'navigation-bars__menu__navlink navigation-bars__menu__navlink__disable'}
                 >
                     Tạo thẻ
                 </NavLink>
-                <NavLink 
-                    to={authCtx.user ? `/thong-tin-scan/${authCtx.user._id}` : '/login'} 
-                    className='navigation-bars__menu__navlink'
-                >
-                    Thông tin thẻ
-                </NavLink>
+                {Infor.length !== 0 || dataShoppingSuccess.length !== 0 ?   
+                    <NavLink 
+                        to={authCtx.user ? `/thong-tin-scan/${authCtx.user._id}` : '/login'} 
+                        className='navigation-bars__menu__navlink'
+                    >
+                        Thông tin thẻ
+                    </NavLink>
+                    : 
+                    <NavLink 
+                        to={authCtx.user ? `/thong-tin-scan/${authCtx.user._id}` : '/login'} 
+                        className='navigation-bars__menu__navlink disabled'
+                    >
+                        Thông tin thẻ
+                    </NavLink>
+                }
+
+            </div>
+            <div className='d-flex align-items-center'>
                 <div className='position-relative me-3' onClick={() => setShowModalCart(true)}>
                     <FontAwesomeIcon icon={faCreditCard} className=' fs-3'/>
                     {CartItems ? <Badge bg="success" className='count-items'>{CartItems}</Badge> : null}
@@ -92,7 +105,7 @@ const NavBar = ({ Infor, CartItems, CartProduct }) => {
                     authCtx.user ?
                     <DropdownButton
                         variant="outline-secondary"
-                        title={authCtx.user.username}
+                        title={authCtx.user.username || authCtx.user.user.displayName}
                     >
                         <Dropdown.Item>
                             <NavLink to={`/profile/${authCtx.user._id}`} className='text-decoration-none'>Profile</NavLink>

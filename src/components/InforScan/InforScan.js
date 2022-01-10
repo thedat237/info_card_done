@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom'
 const InforScan = ({ Infor }) => {
     const dataShoppingSuccess=JSON.parse(localStorage.getItem("shoppingSuccess"))
     console.log("data", dataShoppingSuccess);
+
     const authCtx = useContext(AuthContext)
     const dispatch = useDispatch()
     const navigate = useNavigate()

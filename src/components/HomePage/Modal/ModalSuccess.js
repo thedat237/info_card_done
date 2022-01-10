@@ -7,7 +7,7 @@ import { SAVECART } from '../../../redux/reducer/infor'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../../context/auth'
 
-const ModalSuccess = (props) => {
+const ModalSuccess = props => {
     const [valueModal, setValueModal] = useState({
         email: "",
         phoneNumber: "",
@@ -17,7 +17,7 @@ const ModalSuccess = (props) => {
     const authCtx = useContext(AuthContext)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const data=JSON.parse(localStorage.getItem("dataQR"))
+    const data = JSON.parse(localStorage.getItem("dataQR"))
     
     const onChange = e => {
         const newValue = e.target.value
@@ -32,7 +32,7 @@ const ModalSuccess = (props) => {
 
     const Shopping = () => {
         let result = props.Cart.filter(item => props.ShoppingCart.every(data => data.id !== item.id))
-        if(result.length === 0){
+        if (result.length === 0) {
             dispatch({
                 type: UPDATECART,
                 payload: []
@@ -55,8 +55,8 @@ const ModalSuccess = (props) => {
             localStorage.setItem("Cart", JSON.stringify(result))
             localStorage.setItem("shoppingSuccess", JSON.stringify(props.ShoppingCart))
         }
-        console.log("shopping",result);
-        navigate(`/thong-tin-scan/${authCtx.user.id}`)
+        console.log("shopping", result);
+        navigate(`/thong-tin-scan/${authCtx.user._id}`)
     }
 
     return (
@@ -117,12 +117,12 @@ const ModalSuccess = (props) => {
                 </div> 
             </Modal.Body>
             <Modal.Footer className='d-flex'>
-                <Button variant="danger" onClick={() => {props.handleCancleModal()
-                }}>
+                <Button variant="danger" onClick={() => props.handleCancleModal()}>
                     Hủy
                 </Button>
-                <Button variant="primary" onClick={() => {props.handleCloseModal()
-                    if(props.isLiveShopping) {
+                <Button variant="primary" onClick={() => {
+                    props.handleCloseModal()
+                    if (props.isLiveShopping) {
                         props.buyInfoCard()
                     } else {
                         Shopping()

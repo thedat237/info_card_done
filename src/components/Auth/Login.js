@@ -26,7 +26,7 @@ export default function Login() {
         }
     }
 
-    if(authCtx.user) {
+    if (authCtx.user) {
         return <Navigate to={`/`} replace={true} />
     }
 

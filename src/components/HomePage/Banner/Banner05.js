@@ -15,14 +15,15 @@ import { connect, useDispatch } from 'react-redux'
 import { SAVECART } from '../../../redux/reducer/infor'
 import { ADDPRODUCT } from '../../../redux/reducer/cart'
 
-const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
+const Banner05 = ({ Infor, Cart, ShoppingCart }) => {
     const [selectedImg, setSelectedImg] = useState(cardType[0].src)
     const [selectedNameCard, setSelectedNameCard] = useState(cardType[0].name)
     const [name, setName] = useState("")
     const [avatarUrl, setAvatarUrl] = useState("")
     const [overview, setOverview] = useState("")
     const [listSocials, setListSocials] = useState([])
-    const [socialName, setSocialName] = useState('')
+    // const [socialName, setSocialName] = useState('')
+    const [socialName, setSocialName] = useState(socialNetWork[0].name)
     const [socialLink, setSocialLink] = useState('')
     const [socials, setSocials] = useState([
         {socialName: socialName, socialLink: ""},
@@ -35,28 +36,14 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
     })
     const [showModal, setShowModal] = useState(false);
 
-
     const authCtx = useContext(AuthContext)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    
-    const handleSelectSocial = item => {
-        let result = socials
-        result[result.length - 1].socialName = item.name
-        console.log(result);
-        console.log("item", item);
-        setSocialName(result[result.length - 1].socialName)
-    }
     
     const handleBuyItems = () => {
         setShowModal(false)
         navigate(`/thong-tin-scan/${authCtx.user.id}`)
     }
-
-    // const handleShowModal = () => {
-    //     setShowModal(true)
-    //     console.log(socials.socialLink);
-    // };
 
     useEffect(() => {
         return () => {
@@ -70,29 +57,48 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
         setAvatarUrl(fileAvatar)
     }
 
-    const handleChangeSocial = e => {
-        setSocialLink(e.target.value)
+    // const handleChangeSocial = e => {
+    //     setSocialLink(e.target.value)
+    // }
+
+    // const handleSelect = name => {
+    //     setSocialName(name)
+    // }
+
+    // const handleAddSocial = e => {
+    //     e.preventDefault()
+    //     setListSocials([
+    //         ...listSocials,
+    //         { 
+    //             name: socialName,
+    //             link: socialLink
+    //         }
+    //     ])
+    //     setSocialName('')
+    //     setSocialLink('')
+    // }
+
+    const handleSelectSocial = (item) => {
+        let result = socials
+        result[result.length - 1].socialName = item.name
+        console.log("result", result);
+        console.log("item", item);
+        setSocialName(result[result.length - 1].socialName)
     }
 
-    const handleSelect = name => {
-        setSocialName(name)
+    const handleChangeSocial = (id, e) => {
+        console.log(e.target.value);
+        const values = [...socials]
+        values[id][e.target.name] = e.target.value
+        setSocials(values)
     }
-
-    const handleAddSocial = e => {
-        e.preventDefault()
-        setListSocials([
-            ...listSocials,
-            { 
-                name: socialName,
-                link: socialLink
-            }
-        ])
-        setSocialName('')
-        setSocialLink('')
+    console.log("socials",socials);
+    const handleAddSocial = () => {
+        setSocials([...socials, {socialName:socialName, socialLink: ""}])
     }
 
     useEffect(() => {
-        setImageQRcode(`http://localhost:3000/thong-tin-scan/${authCtx.user.id}`)
+        setImageQRcode(`http://localhost:3000/thong-tin-scan/${authCtx.user._id}`)
     }, [data])
 
     console.log("Infor Scan", Infor)
@@ -102,7 +108,7 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
             type: ADDPRODUCT,
             payload: newData
         })
-        let checkCart = localStorage.getItem("Cart")
+        const checkCart = localStorage.getItem("Cart")
         if (checkCart) {
             const parseCheckCart = JSON.parse(checkCart)
             parseCheckCart.push(newData)
@@ -156,21 +162,11 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
             overview: overview,
             colorCard: selectedNameCard,
             qrImage: imageQRcode,
-            social: (socials[0].socialLink === "" ? [] : socials)
+            social: (listSocials[0].socialLink === "" ? [] : listSocials)
         }
         console.log(newData)
         return newData
     }
-
-    // useEffect(() => {
-    //     if(Infor) {
-    //         setName(Infor.nameUser)
-    //         setAvatarUrl(Infor.avatarUrl)
-    //         setOverview(Infor.overview)
-    //     //    setSelectedNameCard(Infor.colorCard)
-    //     //    setSelectedImg(Infor.nameCard)
-    //     }
-    // },[Infor])
 
     return (
         <>
@@ -186,25 +182,15 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                 <div className='d-flex gap-5'>
                     <div className='demo-card'>
                         <img src={selectedImg} className='demo-card-img' alt='img'/>
-                        {/* <img src={imageQRcode} className="demo-card-qr"/> */}
                         <QRCode 
                             className="demo-card-qr"  
                             size={100}
-                            // value={`http://localhost:3000/thong-tin-scan/${authCtx.user.id}`}
                             value={imageQRcode ? imageQRcode : "NA"}
                             bgColor={"#f7f7f7"}
                             fgColor={"#000000"}
                             level={"L"}
                             includeMargin={false}
                             renderAs={"svg"}
-                            // imageSettings={{
-                            //     src: logoScan,
-                            //     x: null,
-                            //     y: null,
-                            //     height: 24,
-                            //     width: 24,
-                            //     excavate: true,
-                            // }}
                         /> 
                         <h6 className='demo-card-name'>{name}</h6>
                     </div>
@@ -217,14 +203,16 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                             <div className='d-flex fw-bold fs-5 mb-3'>
                                 <span>Màu sắc:</span>
                                 <div className='d-flex'>
-                                    {cardType.map((img, index) => (
-                                        <div className='cursor-pointer card-type'>
-                                            <img key={index} 
+                                    {cardType.map(img => (
+                                        <div className='cursor-pointer card-type' key={img.id}>
+                                            <img
                                                 src={img.src} 
                                                 alt='img'
                                                 className='card-demo-luxury ms-3'
-                                                onClick={() => {setSelectedImg(img.src)
-                                                    setSelectedNameCard(img.name)}}
+                                                onClick={() => {
+                                                    setSelectedImg(img.src)
+                                                    setSelectedNameCard(img.name)
+                                                }}
                                             />
                                         </div>
                                     ))}
@@ -239,7 +227,6 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                                         className='form-control' placeholder='Nhập tên của bạn'
                                         value={name}
                                         onChange={e => setName(e.target.value)}
-                                        // onFocus={e => setName(e.target.name)}
                                     />
                                 </div>
                                 <div className='w-100'>
@@ -250,7 +237,6 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                                         type="file"
                                         name="avatarUrl"
                                         onChange={onChangeAvatar}
-                                        // onFocus={e => setDateOfBirth(e.target.name)}
                                     />
                                     {avatarUrl && (
                                         <div className='border-avatarUrl mt-2'>
@@ -273,22 +259,26 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                                 </div>
                             </div>
                             <div className='w-100 d-flex flex-column align-items-end'>
-                                {
-                                    listSocials.map((item, idx) => {
-                                        return (
-                                            <div key={idx} className='w-100 d-flex flex-row mt-1'>
-                                                <Button disabled className='btn-social-disable'>{item.name}</Button>
-                                                <input 
-                                                    type='text' 
-                                                    value={item.link} 
-                                                    disabled 
-                                                    className='w-100 ms-1 form-control'
-                                                />
-                                            </div>
-                                        )
-                                    })
-                                }
-                                <div className="mb-3 w-100">
+                                {socials?.map((social, idx) =>  <>
+                                    <DropDownLink 
+                                        key={idx}
+                                        title={social.socialName} 
+                                        onClick={handleSelectSocial} 
+                                        valueLink={social.socialLink} 
+                                        onChangeLink={e => handleChangeSocial(idx, e)}
+                                        nameInput="socialLink"
+                                    />
+                                    {socials.length - 1 === idx && 
+                                        <button 
+                                            className='btn btn-primary' 
+                                            onClick={handleAddSocial}
+                                        >
+                                            Thêm mạng xã hội
+                                        </button>
+                                    }
+                                    </>
+                                )}
+                                {/* <div className="mb-3 w-100">
                                     <InputGroup className='mt-3'>
                                         <DropdownButton
                                             variant="outline-secondary"
@@ -317,7 +307,7 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                                     >
                                         Thêm Link cá nhân
                                     </button>
-                                </div>
+                                </div> */}
                             </div>
                             <div className='d-flex justify-content-between align-items-center w-100'>
                                 <div className='d-flex'>
@@ -328,22 +318,20 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                                 </div>
                                 <h6 className='fw-bold'>Freeship toàn quốc</h6>
                             </div>
-                            <button className='btn btn-success mb-3 me-3' onClick={(event) => all(event, 1)}>Thêm vào giỏ hàng</button>
-                            <button className='btn btn-primary mb-3' onClick={(event) => all(event, 2)}>Đặt mua</button>
-                            {name === ""  ?
-                                (<ModalEmptyInput show={showModal} onClose={handleBuyItems}/>) 
+                            <button className='btn btn-success mb-3 me-3' onClick={e => all(e, 1)}>Thêm vào giỏ hàng</button>
+                            <button className='btn btn-primary mb-3' onClick={e => all(e, 2)}>Đặt mua</button>
+                            {
+                                name === "" ?
+                                <ModalEmptyInput show={showModal} onClose={handleBuyItems}/>
                                 :
-                                (<ModalSuccess show={showModal}
+                                <ModalSuccess show={showModal}
                                     handleCancleModal={() => setShowModal(false)}
                                     handleCloseModal={handleBuyItems}
                                     isLiveShopping
-                                    buyInfoCard = {
-                                        () => buyInfoCard()
-                                    }
-                                />)
+                                    buyInfoCard = {() => buyInfoCard()}
+                                />
                             }
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -357,4 +345,4 @@ const maptoStatetoProps = state => ({
     Cart: state.Cart
 })
 
-export default connect(maptoStatetoProps, null)(Banner04)
+export default connect(maptoStatetoProps, null)(Banner05)

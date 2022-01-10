@@ -21,10 +21,28 @@
     color: var(--gray-dark);
     transition: color 0.2s ease-in-out;
     font-weight: bold;
+    position: relative;
+}
+
+.navigation-bars__menu__navlink__disable {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: pointer;
 }
 
 .navigation-bars__menu__navlink:hover {
-    color: #66CCCC;
+    color: black;
+}
+
+.navigation-bars__menu__navlink:hover:after{
+    content: "";
+    position: absolute;
+    width: 102px;
+    height: 3px;
+    background-color: black;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .navigation-icons {
@@ -71,12 +89,16 @@
     }
 }
 
-.active {
-    color: #66CCCC;
+.active::after {
+    content: "";
+    position: absolute;
+    width: 102px;
+    height: 3px;
+    background-color: black;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
 }
-
-
-
 
 .header-menu{
     display: flex;
