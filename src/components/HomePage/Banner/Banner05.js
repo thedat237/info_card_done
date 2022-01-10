@@ -10,12 +10,12 @@ import { Dropdown, FormControl, InputGroup, DropdownButton, Button } from "react
 import socialNetWork from '../../../data/socialNetWork'
 import ModalSuccess from '../Modal/ModalSuccess'
 import ModalEmptyInput from '../Modal/ModalEmptyInput'
-import DropDownLink from '../../DropDown/DropDownLink'
+// import DropDownLink from '../../DropDown/DropDownLink'
 import { connect, useDispatch } from 'react-redux'
 import { SAVECART } from '../../../redux/reducer/infor'
 import { ADDPRODUCT } from '../../../redux/reducer/cart'
 
-const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
+const Banner05 = ({ Infor, Cart, ShoppingCart }) => {
     const [selectedImg, setSelectedImg] = useState(cardType[0].src)
     const [selectedNameCard, setSelectedNameCard] = useState(cardType[0].name)
     const [name, setName] = useState("")
@@ -24,9 +24,9 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
     const [listSocials, setListSocials] = useState([])
     const [socialName, setSocialName] = useState('')
     const [socialLink, setSocialLink] = useState('')
-    const [socials, setSocials] = useState([
-        {socialName: socialName, socialLink: ""},
-    ])
+    // const [socials, setSocials] = useState([
+    //     {socialName: socialName, socialLink: ""},
+    // ])
     const [newData, setNewData] = useState([])
     const [imageQRcode, setImageQRcode] = useState("")
     const [data, setData] = useState(() => {
@@ -35,28 +35,14 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
     })
     const [showModal, setShowModal] = useState(false);
 
-
     const authCtx = useContext(AuthContext)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    
-    const handleSelectSocial = item => {
-        let result = socials
-        result[result.length - 1].socialName = item.name
-        console.log(result);
-        console.log("item", item);
-        setSocialName(result)
-    }
     
     const handleBuyItems = () => {
         setShowModal(false)
         navigate(`/thong-tin-scan/${authCtx.user.id}`)
     }
-
-    // const handleShowModal = () => {
-    //     setShowModal(true)
-    //     console.log(socials.socialLink);
-    // };
 
     useEffect(() => {
         return () => {
@@ -92,7 +78,7 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
     }
 
     useEffect(() => {
-        setImageQRcode(`http://localhost:3000/thong-tin-scan/${authCtx.user.id}`)
+        setImageQRcode(`http://localhost:3000/thong-tin-scan/${authCtx.user._id}`)
     }, [data])
 
     console.log("Infor Scan", Infor)
@@ -102,7 +88,7 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
             type: ADDPRODUCT,
             payload: newData
         })
-        let checkCart = localStorage.getItem("Cart")
+        const checkCart = localStorage.getItem("Cart")
         if (checkCart) {
             const parseCheckCart = JSON.parse(checkCart)
             parseCheckCart.push(newData)
@@ -156,21 +142,11 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
             overview: overview,
             colorCard: selectedNameCard,
             qrImage: imageQRcode,
-            social: (socials[0].socialLink === "" ? [] : socials)
+            social: (listSocials[0].socialLink === "" ? [] : listSocials)
         }
         console.log(newData)
         return newData
     }
-
-    // useEffect(() => {
-    //     if(Infor) {
-    //         setName(Infor.nameUser)
-    //         setAvatarUrl(Infor.avatarUrl)
-    //         setOverview(Infor.overview)
-    //     //    setSelectedNameCard(Infor.colorCard)
-    //     //    setSelectedImg(Infor.nameCard)
-    //     }
-    // },[Infor])
 
     return (
         <>
@@ -186,25 +162,15 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                 <div className='d-flex gap-5'>
                     <div className='demo-card'>
                         <img src={selectedImg} className='demo-card-img' alt='img'/>
-                        {/* <img src={imageQRcode} className="demo-card-qr"/> */}
                         <QRCode 
                             className="demo-card-qr"  
                             size={100}
-                            // value={`http://localhost:3000/thong-tin-scan/${authCtx.user.id}`}
                             value={imageQRcode ? imageQRcode : "NA"}
                             bgColor={"#f7f7f7"}
                             fgColor={"#000000"}
                             level={"L"}
                             includeMargin={false}
                             renderAs={"svg"}
-                            // imageSettings={{
-                            //     src: logoScan,
-                            //     x: null,
-                            //     y: null,
-                            //     height: 24,
-                            //     width: 24,
-                            //     excavate: true,
-                            // }}
                         /> 
                         <h6 className='demo-card-name'>{name}</h6>
                     </div>
@@ -217,14 +183,16 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                             <div className='d-flex fw-bold fs-5 mb-3'>
                                 <span>Màu sắc:</span>
                                 <div className='d-flex'>
-                                    {cardType.map((img, index) => (
-                                        <div className='cursor-pointer card-type'>
-                                            <img key={index} 
+                                    {cardType.map(img => (
+                                        <div className='cursor-pointer card-type' key={img.id}>
+                                            <img
                                                 src={img.src} 
                                                 alt='img'
                                                 className='card-demo-luxury ms-3'
-                                                onClick={() => {setSelectedImg(img.src)
-                                                    setSelectedNameCard(img.name)}}
+                                                onClick={() => {
+                                                    setSelectedImg(img.src)
+                                                    setSelectedNameCard(img.name)
+                                                }}
                                             />
                                         </div>
                                     ))}
@@ -239,7 +207,6 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                                         className='form-control' placeholder='Nhập tên của bạn'
                                         value={name}
                                         onChange={e => setName(e.target.value)}
-                                        // onFocus={e => setName(e.target.name)}
                                     />
                                 </div>
                                 <div className='w-100'>
@@ -250,7 +217,6 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                                         type="file"
                                         name="avatarUrl"
                                         onChange={onChangeAvatar}
-                                        // onFocus={e => setDateOfBirth(e.target.name)}
                                     />
                                     {avatarUrl && (
                                         <div className='border-avatarUrl mt-2'>
@@ -328,22 +294,20 @@ const Banner04 = ({ Infor, Cart, ShoppingCart }) => {
                                 </div>
                                 <h6 className='fw-bold'>Freeship toàn quốc</h6>
                             </div>
-                            <button className='btn btn-success mb-3 me-3' onClick={(event) => all(event, 1)}>Thêm vào giỏ hàng</button>
-                            <button className='btn btn-primary mb-3' onClick={(event) => all(event, 2)}>Đặt mua</button>
-                            {name === ""  ?
-                                (<ModalEmptyInput show={showModal} onClose={handleBuyItems}/>) 
+                            <button className='btn btn-success mb-3 me-3' onClick={e => all(e, 1)}>Thêm vào giỏ hàng</button>
+                            <button className='btn btn-primary mb-3' onClick={e => all(e, 2)}>Đặt mua</button>
+                            {
+                                name === "" ?
+                                <ModalEmptyInput show={showModal} onClose={handleBuyItems}/>
                                 :
-                                (<ModalSuccess show={showModal}
+                                <ModalSuccess show={showModal}
                                     handleCancleModal={() => setShowModal(false)}
                                     handleCloseModal={handleBuyItems}
                                     isLiveShopping
-                                    buyInfoCard = {
-                                        () => buyInfoCard()
-                                    }
-                                />)
+                                    buyInfoCard = {() => buyInfoCard()}
+                                />
                             }
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -357,4 +321,4 @@ const maptoStatetoProps = state => ({
     Cart: state.Cart
 })
 
-export default connect(maptoStatetoProps, null)(Banner04)
+export default connect(maptoStatetoProps, null)(Banner05)

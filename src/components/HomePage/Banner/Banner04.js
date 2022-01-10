@@ -4,7 +4,7 @@ import bannerSocial from "../../../assets/banner_social.png"
 import bannerPhone4 from "../../../assets/banner_phone4.png"
 import bannerPhone3 from "../../../assets/banner_phone3.png"
 
-export default function Banner03() {
+export default function Banner04() {
     return (
         <div className="container">
             <div className="mt-5">

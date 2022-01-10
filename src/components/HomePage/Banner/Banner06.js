@@ -10,7 +10,7 @@ import cardBack3 from "../../../assets/banner_card_noname1_back.png"
 import cardBack4 from "../../../assets/banner_card_noname2_back.png"
 import cardBack5 from "../../../assets/banner_card_noname3_back.png"
 
-export default function Banner05() {
+export default function Banner06() {
     return (
         <div className='container'>
             <h2 className='banner__heading text-dark'>

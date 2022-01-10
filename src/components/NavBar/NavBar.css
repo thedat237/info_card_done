@@ -23,6 +23,12 @@
     font-weight: bold;
 }
 
+.navigation-bars__menu__navlink__disable {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
 .navigation-bars__menu__navlink:hover {
     color: #66CCCC;
 }
