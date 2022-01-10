@@ -21,7 +21,7 @@ import { faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons'
 
 function App() {
   const [authUser, setAuthUser] = useState(null)
-  const [checkingAuthUserDone, setCheckingAuthUserDone] = useState(false)
+  // const [checkingAuthUserDone, setCheckingAuthUserDone] = useState(false)
   const [showGoToTop, setShowGoToTop] = useState(false)
   
   const config = {
@@ -32,25 +32,8 @@ function App() {
     }
   }
 
-  // useEffect(() => {
-  //   const checkUser = async () => {
-  //     const checkToken = await Promise.allSettled([
-  //       axios.get('/auth/login/success' || 'auth/login/oauth', config),
-  //       // axios.get('/auth/login/oauth', config)
-  //     ])
-  //     console.log(checkToken);
-  //   }
-  //   checkUser()
-  // }, [])
-
   useEffect(() => {
-    axios.get('/auth/login/success', {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
+    axios.get('/auth/login/success', config)
     .then((response) => {
       setAuthUser(response.data);
     })
@@ -59,7 +42,11 @@ function App() {
     })
 
     axios.get('/auth/login/oauth', config)
-    .then(res => console.log(res))
+    .then(res => {
+      if (authUser === null) {
+        setAuthUser(res.data)
+      }
+    })
     .catch(err => console.log(err))
   }, [])
 

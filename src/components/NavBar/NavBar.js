@@ -21,7 +21,7 @@ const NavBar = ({ Infor, CartItems, CartProduct }) => {
 
     const authCtx = useContext(AuthContext)
     const dispatch = useDispatch()
-    
+
     // const dataShoppingSuccess = JSON.parse(localStorage.getItem("shoppingSuccess")) || []
 
     const updateCart = () => {
@@ -95,7 +95,7 @@ const NavBar = ({ Infor, CartItems, CartProduct }) => {
                     authCtx.user ?
                     <DropdownButton
                         variant="outline-secondary"
-                        title={authCtx.user.username}
+                        title={authCtx.user.username || authCtx.user.user.displayName}
                     >
                         <Dropdown.Item>
                             <NavLink to={`/profile/${authCtx.user._id}`} className='text-decoration-none'>Profile</NavLink>
