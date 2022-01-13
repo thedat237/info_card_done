@@ -1,8 +1,8 @@
-.information-banner {
-    box-shadow: none !important;
-}
-
-.section1-img {
+.section1-img{
+    width: 55%;
+    transform: translateX(-50px);
     border-radius: 16px;
-    width: 100%;
+}
+.section1-infor{
+    width: 45%;
 }

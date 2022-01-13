@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./InforScan.css"
 import BannerInfoScan4 from "../../assets/banner_info_scan4.png"
-// import QRCode from "qrcode.react"
+import QRCode from "qrcode.react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faChevronRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import facebook from "../../assets/socialLogo_facebook.png"
 import instagram from "../../assets/socialLogo_instagram.png"
 import email from "../../assets/socialLogo_email.png"
@@ -19,15 +19,14 @@ const socialLogo = {
 }
 
 
-const InforScan = ({ Infor }) => {
+const InforScan = ({Infor}) => {
     const dataShoppingSuccess=JSON.parse(localStorage.getItem("shoppingSuccess"))
     console.log("data", dataShoppingSuccess);
-    
+    console.log("abc", Infor);
     const authCtx = useContext(AuthContext)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [data, setData] = useState(Infor)
-    console.log("data Infor",data);
     
     const handleReloadCard = () => {
         dispatch({
@@ -48,30 +47,23 @@ const InforScan = ({ Infor }) => {
     //     let Infor = data
     //     console.log("fgh", Infor);
 
-    //     if(typeof Infor === "object"){
-    //         console.log("vaof dday");
-    //         setData(Infor[0])
-    //     }
-    // }
-
-    let infor = data
-
-    if(Infor.length === 1){
+    if(Infor.lenght === 1){
         setData(Infor[0])
     }
+    console.log(data);
+    // }
 
     useEffect(() => {
         updateShoppingSuccess()
         // convertArr()
     },[])
 
-
     return (
         <div className='container'>
-            {Infor.map((item, idx) => <div className='d-flex justify-content-between align-items-center' key={idx}>
+            {dataShoppingSuccess.map((item, idx) => <div className='d-flex justify-content-between align-items-center' key={idx}>
                     <div className='demo-card'>
-                        <img src={item?.nameCard} className='demo-card-img' alt='img'/>
-                        {/* <QRCode 
+                        <img src={item?.nameCard} className='demo-card-img'/>
+                        <QRCode 
                             className="scanned-qr"  
                             size={100}
                             value={item?.qrImage}
@@ -80,14 +72,14 @@ const InforScan = ({ Infor }) => {
                             level={"L"}
                             includeMargin={false}
                             renderAs={"svg"}
-                        /> */}
+                        />
                         <h6 className='demo-card-name'>{item?.nameUser}</h6>
                     </div>
                     <div className='position-relative'>
-                        <img src={BannerInfoScan4} className="img-info-scan" alt='img'/>
+                        <img src={BannerInfoScan4} className="img-info-scan"/>
                         <div className='line'></div>
                         <div className='border-avatarUrl position-absolute border-scanned'>
-                            <img src={item?.avatarUrl} className='scanned-avatar' alt='img'/>
+                            <img src={item?.avatarUrl} className='scanned-avatar'/>
                         </div>
                         <div className='header-name'>
                             <h4 className='scanned-name text-dark'>{item?.nameUser}</h4>

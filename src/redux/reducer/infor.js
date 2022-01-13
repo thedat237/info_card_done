@@ -15,7 +15,7 @@ const Infor = createSlice({
     name: 'Info',
     initialState: initStore,
     reducers: {
-        SAVECART (state, action) {
+        SAVECART(state, action){
             // console.log('action payload', action.payload)
             // state.nameUser = action.payload.nameUser
             // state.avatarUrl = action.payload.avatarUrl
@@ -24,27 +24,27 @@ const Infor = createSlice({
             // state.social = [...action.payload.social]
             // state.nameCard = action.payload.nameCard
             // state.qrImage = action.payload.qrImage
-            let result = state.data
+            let result=state.data
+            console.log("xyz", action.payload);
             console.log("save cart", action.payload);
             console.log(typeof action.payload === "object");
-            if (typeof action.payload === "object") {
+            if(typeof action.payload === "object"){
                 result.push(action.payload)
             } else {
-                result = [...action.payload]
+                result=[...action.payload]
+
             }
             state.data = [...result]
         },
-
-        RESETCART (state, action) {
-            state.data = []
+        RESETCART(state, action){
+            state.data=[]
         },
-
-        UPDATESHOPPINGSUCCESS (state, action) {
-            state.data = [...action.payload]
+        UPDATESHOPPINGSUCCESS(state, action){
+            state.data=[...action.payload]
             console.log(state.data);
         }
     }
 })
 
-export const { SAVECART, RESETCART, UPDATESHOPPINGSUCCESS} = Infor.actions
+export const {SAVECART, RESETCART, UPDATESHOPPINGSUCCESS} = Infor.actions
 export default Infor.reducer

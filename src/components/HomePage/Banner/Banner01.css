@@ -1,26 +1,29 @@
-.banner-header {
+.banner-header{
+    /* background-image: linear-gradient(
+140deg, #89b7ce 0%, #021a25 50%, #41d1d6 75%); */
     background-color: black;
-    border: none !important;
-    box-shadow: none !important;
 }
-
-.phone-img {
+.banner-infor{
+    width: 35%;
+}
+/* .banner__heading{
+    font-size: 55px;
+    line-height: 1.2;
+    margin-bottom: 40px;
+    color: white;
+}
+.banner__heading span{
+    display: block;
+} */
+.banner-img{
+    margin-left: 80px;
+    width: 65%;
+}
+.phone-img{
     object-fit: cover;
     width: 200px;
 }
-
-.card-image {
+.card-image{
     object-fit: contain;
     width: 300px;
-}
-
-@media (max-width: 1100px) {
-    .phone-img {
-        padding-top: 30px;
-    }
-
-    .card-image {
-        width: 280px;
-        padding-top: 30px;
-    }
 }

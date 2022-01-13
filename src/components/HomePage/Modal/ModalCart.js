@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import React, {useState, useEffect } from 'react'
 import "./ModalCart.css"
-// import bannerCard5 from "../../../assets/banner_card5.png"
+import bannerCard5 from "../../../assets/banner_card5.png"
 import { Modal, Button} from 'react-bootstrap'
 import { connect, useDispatch } from 'react-redux'
-import { BUYPRODUCT, REMOVEPRODUCT, UPDATECART } from '../../../redux/reducer/cart'
+import { BUYPRODUCT, REMOVEPRODUCT, UPDATECART, UPDATESTORAGE } from '../../../redux/reducer/cart'
 import CheckBox from '../../CheckBox/CheckBox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -14,7 +14,7 @@ const ModalCart = (props) => {
     const [result, setResult] = useState([])
     const dispatch = useDispatch()
 
-    const unSelect = item => {
+    const unSelect = (item) => {
         // setCheckedBox(false)
         let dataUnSelect = result.filter((items) => items.id !== item.id)
         setResult(dataUnSelect)
@@ -23,9 +23,9 @@ const ModalCart = (props) => {
 
     useEffect(() => {
         console.log("useEffect", result);
-    }, [checkedBox])
+    },[checkedBox])
 
-    const selectedInfoCard = items => {
+    const selectedInfoCard = (items) => {
         // setCheckedBox(true)
         let dataSelect = result
         dataSelect.push(items)
@@ -33,7 +33,7 @@ const ModalCart = (props) => {
         console.log("data select", dataSelect);
     }
 
-    const removeProduct = items => {
+    const removeProduct = (items) => {
         dispatch({
             type: REMOVEPRODUCT,
             payload: items.id
@@ -53,8 +53,8 @@ const ModalCart = (props) => {
     const updateCart = () => {
         const dataCart = JSON.parse(localStorage.getItem("Cart"))
         console.log(dataCart);
-        if (props.Cart.length === 0) {
-            if (dataCart) {
+        if(props.Cart.length === 0) {
+            if(dataCart){
                 dispatch({
                     type: UPDATECART,
                     payload: dataCart === null ? [] : dataCart
@@ -88,7 +88,7 @@ const ModalCart = (props) => {
                                 unSelected={() => unSelect(item)} 
                                 selected={() => selectedInfoCard(item)
                             }/>
-                            <img src={item.nameCard} className='img-card mx-2' alt='img'/>
+                            <img src={item.nameCard} className='img-card mx-2'/>
                             <div className='d-flex flex-column'>
                                 <div className='d-flex'>
                                     <span className='me-2'>Tên trên thẻ:</span>
@@ -112,8 +112,8 @@ const ModalCart = (props) => {
             </Modal.Body>
             {props.Cart.length !== 0 &&
                 <Modal.Footer>
-                    <Button onClick={() => {
-                        buyProduct()
+                    <Button onClick={() => 
+                        {buyProduct()
                         props.showModalBuyCart()
                     }}
                     >
@@ -124,9 +124,7 @@ const ModalCart = (props) => {
         </Modal>
     )
 }
-
-const maptoStatetoProps = state => ({
+const maptoStatetoProps = (state) => ({
     Cart: state.Cart.product
 })
-
 export default connect(maptoStatetoProps, null)(ModalCart)

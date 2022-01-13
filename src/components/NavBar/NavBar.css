@@ -1,136 +1,32 @@
-.navigation-bars {
-    padding: 0.5rem calc((100vw - 1000px) / 2);
-    height: 60px;
-}
-
-.logo-img {
+.logo-img{
     object-fit: cover;
     width: 150px;
 }
-
-.navigation-bars__menu {
-    display: flex;
-    align-items: center;
-    background-color: #FFFFFF;
-}
-
-.navigation-bars__menu__navlink {
-    text-decoration: none;
-    padding: 0 2rem;
-    cursor: pointer;
-    color: var(--gray-dark);
-    transition: color 0.2s ease-in-out;
-    font-weight: bold;
-    position: relative;
-}
-
-.navigation-bars__menu__navlink__disable {
-    pointer-events: none;
-    opacity: 0.6;
-    cursor: pointer;
-}
-
-.navigation-bars__menu__navlink:hover {
-    color: black;
-}
-
-.navigation-bars__menu__navlink:hover:after{
-    content: "";
-    position: absolute;
-    width: 102px;
-    height: 3px;
-    background-color: black;
-    top: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.navigation-icons {
-    display: none;
-}
-
-@media (max-width: 1000px) {
-    .navigation-bars__menu {
-        display: none;
-    }
-
-    .navigation-bars__menu__click {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 400px;
-        position: absolute;
-        top: 54px;
-        left: 0;
-        background-color: #FFFFFF;
-    }
-    
-    .navigation-bars__menu__navlink {
-        text-align: center;
-        padding: 1.5rem;
-        width: 100%;
-        display: table;
-    }
-
-    .navigation-icons {
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translate(-50%, 50%);
-        font-size: 1.8rem;
-        cursor: pointer;
-    }
-
-    .navigation-button {
-        display: flex;
-        justify-content: center;
-        margin: 5px 0 0 0;
-    }
-}
-
-.active::after {
-    content: "";
-    position: absolute;
-    width: 102px;
-    height: 3px;
-    background-color: black;
-    top: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
 .header-menu{
     display: flex;
     align-items: center;
     list-style: none;
 }
-
 .text{
     color: black;
 }
-
 .text:hover{
     background: linear-gradient(90deg, #275852, #471926);
     background-clip: text ;
     -webkit-background-clip: text;
     color: transparent;
 }
-
 .header-menu-item:not(:first-child){
     margin-left: 75px;
 }
-
 .disabled{
     pointer-events: none;
 }
-
 .count-items{
     position: absolute;
     bottom: 20px;
     left: 20px;
 }
-
 .cart{
     cursor: pointer;
 }

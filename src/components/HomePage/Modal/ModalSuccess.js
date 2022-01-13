@@ -1,38 +1,37 @@
-import { useContext, useState } from 'react'
+import React, {useContext, useState} from 'react'
 import "./ModalSuccess.css"
 import { Modal, Button } from 'react-bootstrap'
 import { connect, useDispatch } from 'react-redux'
-import { UPDATECART } from '../../../redux/reducer/cart'
+import { BUYPRODUCT, UPDATECART } from '../../../redux/reducer/cart'
 import { SAVECART } from '../../../redux/reducer/infor'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../../context/auth'
 
-const ModalSuccess = props => {
+const ModalSuccess = (props) => {
+    const data=JSON.parse(localStorage.getItem("dataQR"))
+    const authCtx = useContext(AuthContext)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [valueModal, setValueModal] = useState({
         email: "",
         phoneNumber: "",
         address: ""
     })
-    
-    const authCtx = useContext(AuthContext)
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const data = JSON.parse(localStorage.getItem("dataQR"))
-    
-    const onChange = e => {
-        const newValue = e.target.value
-        const field = e.target.name
-        setValueModal(prev => {
+
+    const onChange = (event) => {
+        const newValue = event.target.value
+        const field = event.target.name
+        setValueModal((prev) => {
             return {
                 ...prev,
-                [field]: newValue
+                [field] : newValue
             }
         })
     }
 
     const Shopping = () => {
         let result = props.Cart.filter(item => props.ShoppingCart.every(data => data.id !== item.id))
-        if (result.length === 0) {
+        if(result.length === 0){
             dispatch({
                 type: UPDATECART,
                 payload: []
@@ -55,8 +54,8 @@ const ModalSuccess = props => {
             localStorage.setItem("Cart", JSON.stringify(result))
             localStorage.setItem("shoppingSuccess", JSON.stringify(props.ShoppingCart))
         }
-        console.log("shopping", result);
-        navigate(`/thong-tin-scan/${authCtx.user?._id}`)
+        console.log("shopping",result);
+        navigate(`/thong-tin-scan/${authCtx.user.id}`)
     }
 
     return (
@@ -117,12 +116,12 @@ const ModalSuccess = props => {
                 </div> 
             </Modal.Body>
             <Modal.Footer className='d-flex'>
-                <Button variant="danger" onClick={() => props.handleCancleModal()}>
+                <Button variant="danger" onClick={() => {props.handleCancleModal()
+                }}>
                     Hủy
                 </Button>
-                <Button variant="primary" onClick={() => {
-                    props.handleCloseModal()
-                    if (props.isLiveShopping) {
+                <Button variant="primary" onClick={() => {props.handleCloseModal()
+                    if(props.isLiveShopping) {
                         props.buyInfoCard()
                     } else {
                         Shopping()
@@ -134,11 +133,9 @@ const ModalSuccess = props => {
         </Modal>
     )
 }
-
-const maptoStatetoProps = state => ({
+const maptoStatetoProps = (state) => ({
     Infor: state.Infor.data,
     Cart: state.Cart.product,
     ShoppingCart: state.Cart.cart
 })
-
 export default connect(maptoStatetoProps, null)(ModalSuccess)
