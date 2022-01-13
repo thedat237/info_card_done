@@ -68,7 +68,7 @@ const InforScan = ({ Infor }) => {
 
     return (
         <div className='container'>
-            {data.map((item, idx) => <div className='d-flex justify-content-between align-items-center' key={idx}>
+            {Infor.map((item, idx) => <div className='d-flex justify-content-between align-items-center' key={idx}>
                     <div className='demo-card'>
                         <img src={item?.nameCard} className='demo-card-img' alt='img'/>
                         {/* <QRCode 
