@@ -56,7 +56,7 @@ const ModalSuccess = props => {
             localStorage.setItem("shoppingSuccess", JSON.stringify(props.ShoppingCart))
         }
         console.log("shopping", result);
-        navigate(`/thong-tin-scan/${authCtx.user._id}`)
+        navigate(`/thong-tin-scan/${authCtx.user?._id}`)
     }
 
     return (

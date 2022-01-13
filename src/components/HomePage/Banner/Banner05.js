@@ -16,67 +16,209 @@ import { SAVECART } from '../../../redux/reducer/infor'
 import { ADDPRODUCT } from '../../../redux/reducer/cart'
 
 const Banner05 = ({ Infor, Cart, ShoppingCart }) => {
+    // const [selectedImg, setSelectedImg] = useState(cardType[0].src)
+    // const [selectedNameCard, setSelectedNameCard] = useState(cardType[0].name)
+    // const [name, setName] = useState("")
+    // const [avatarUrl, setAvatarUrl] = useState("")
+    // const [overview, setOverview] = useState("")
+    // const [listSocials, setListSocials] = useState([])
+    // // const [socialName, setSocialName] = useState('')
+    // const [socialName, setSocialName] = useState(socialNetWork[0].name)
+    // const [socialLink, setSocialLink] = useState('')
+    // const [socials, setSocials] = useState([
+    //     {socialName: socialName, socialLink: ""},
+    // ])
+    // const [newData, setNewData] = useState([])
+    // const [imageQRcode, setImageQRcode] = useState("")
+    // const [data, setData] = useState(() => {
+    //     const storageInfoQR = JSON.parse(localStorage.getItem("dataQR"))
+    //     return storageInfoQR
+    // })
+    // const [showModal, setShowModal] = useState(false);
+
+    // const authCtx = useContext(AuthContext)
+    // const navigate = useNavigate()
+    // const dispatch = useDispatch()
+    
+    // const handleBuyItems = () => {
+    //     setShowModal(false)
+    //     navigate(`/thong-tin-scan/${authCtx.user.id}`)
+    // }
+
+    // useEffect(() => {
+    //     return () => {
+    //         avatarUrl && URL.revokeObjectURL(avatarUrl.preview)
+    //     }
+    // }, [avatarUrl])
+
+    // const onChangeAvatar = e => {
+    //     const fileAvatar = e.target.files[0]
+    //     fileAvatar.preview = URL.createObjectURL(fileAvatar)
+    //     setAvatarUrl(fileAvatar)
+    // }
+
+    // // const handleChangeSocial = e => {
+    // //     setSocialLink(e.target.value)
+    // // }
+
+    // // const handleSelect = name => {
+    // //     setSocialName(name)
+    // // }
+
+    // // const handleAddSocial = e => {
+    // //     e.preventDefault()
+    // //     setListSocials([
+    // //         ...listSocials,
+    // //         { 
+    // //             name: socialName,
+    // //             link: socialLink
+    // //         }
+    // //     ])
+    // //     setSocialName('')
+    // //     setSocialLink('')
+    // // }
+
+    // const handleSelectSocial = (item) => {
+    //     let result = socials
+    //     result[result.length - 1].socialName = item.name
+    //     console.log("result", result);
+    //     console.log("item", item);
+    //     setSocialName(result[result.length - 1].socialName)
+    // }
+
+    // const handleChangeSocial = (id, e) => {
+    //     console.log(e.target.value);
+    //     const values = [...socials]
+    //     values[id][e.target.name] = e.target.value
+    //     setSocials(values)
+    // }
+    // console.log("socials",socials);
+    // const handleAddSocial = () => {
+    //     setSocials([...socials, {socialName:socialName, socialLink: ""}])
+    // }
+
+    // useEffect(() => {
+    //     setImageQRcode(`http://localhost:3000/thong-tin-scan/${authCtx.user._id}`)
+    // }, [data])
+
+    // console.log("Infor Scan", Infor)
+
+    // const addToCart = newData => {
+    //     dispatch({
+    //         type: ADDPRODUCT,
+    //         payload: newData
+    //     })
+    //     const checkCart = localStorage.getItem("Cart")
+    //     if (checkCart) {
+    //         const parseCheckCart = JSON.parse(checkCart)
+    //         parseCheckCart.push(newData)
+    //         const jsonDataAddProduct = JSON.stringify(parseCheckCart)
+    //         localStorage.setItem("Cart", jsonDataAddProduct)
+    //     } else {
+    //         let result = []
+    //         result.push(newData)
+    //         const jsonDataAddProduct = JSON.stringify(result)
+    //         localStorage.setItem("Cart", jsonDataAddProduct)
+    //     }
+    // }
+    // console.log("add to cart", Cart);
+
+    // const buyInfoCard = () => {
+    //     console.log("new data", newData);
+    //     let result = []
+    //     result.push(newData)
+    //     dispatch({
+    //         type: SAVECART,
+    //         payload: newData
+    //     })
+
+    //     localStorage.setItem("dataQR", JSON.stringify(newData))
+    //     localStorage.setItem("shoppingSuccess", JSON.stringify(result))
+    //     setShowModal(true)
+    // }
+
+    // const all = (e, typeButton) => {
+    //     let data = onSubmitForm(e)
+    //     if (typeButton === 1) {
+    //         addToCart(data)
+    //     } else {
+    //         setShowModal(true)
+    //         setNewData(data)
+    //         localStorage.setItem("dataQR", JSON.stringify(data))
+    //     }
+    // }
+    // // buyInfoCard(data)
+    // const randId = () =>{
+    //     return Math.random().toString(36).replace('0.',  '');
+    // }
+
+    // const onSubmitForm = e => {
+    //     e.preventDefault()
+    //     const newData = {
+    //         id: randId(),
+    //         nameUser: name,
+    //         avatarUrl: (avatarUrl === "" ? "" : avatarUrl.preview),
+    //         nameCard: selectedImg,
+    //         overview: overview,
+    //         colorCard: selectedNameCard,
+    //         qrImage: imageQRcode,
+    //         social: (listSocials[0].socialLink === "" ? [] : listSocials)
+    //     }
+    //     console.log(newData)
+    //     return newData
+    // }
+
+    const authCtx = useContext(AuthContext)
+    const navigate = useNavigate()
     const [selectedImg, setSelectedImg] = useState(cardType[0].src)
     const [selectedNameCard, setSelectedNameCard] = useState(cardType[0].name)
+    const dispatch = useDispatch()
     const [name, setName] = useState("")
     const [avatarUrl, setAvatarUrl] = useState("")
     const [overview, setOverview] = useState("")
-    const [listSocials, setListSocials] = useState([])
-    // const [socialName, setSocialName] = useState('')
     const [socialName, setSocialName] = useState(socialNetWork[0].name)
-    const [socialLink, setSocialLink] = useState('')
     const [socials, setSocials] = useState([
         {socialName: socialName, socialLink: ""},
     ])
     const [newData, setNewData] = useState([])
+    
+    
+    
     const [imageQRcode, setImageQRcode] = useState("")
+    
     const [data, setData] = useState(() => {
         const storageInfoQR = JSON.parse(localStorage.getItem("dataQR"))
+        
         return storageInfoQR
     })
+    
+    
     const [showModal, setShowModal] = useState(false);
-
-    const authCtx = useContext(AuthContext)
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
     
     const handleBuyItems = () => {
         setShowModal(false)
         navigate(`/thong-tin-scan/${authCtx.user.id}`)
     }
 
+    // const handleShowModal = () => {
+    //     setShowModal(true)
+    //     console.log(socials.socialLink);
+    // };
+
+
     useEffect(() => {
         return () => {
             avatarUrl && URL.revokeObjectURL(avatarUrl.preview)
         }
-    }, [avatarUrl])
+    },[avatarUrl])
 
-    const onChangeAvatar = e => {
+    const onChangeAvatar = (e) => {
         const fileAvatar = e.target.files[0]
+
         fileAvatar.preview = URL.createObjectURL(fileAvatar)
-        setAvatarUrl(fileAvatar)
+
+        setAvatarUrl(fileAvatar) 
     }
-
-    // const handleChangeSocial = e => {
-    //     setSocialLink(e.target.value)
-    // }
-
-    // const handleSelect = name => {
-    //     setSocialName(name)
-    // }
-
-    // const handleAddSocial = e => {
-    //     e.preventDefault()
-    //     setListSocials([
-    //         ...listSocials,
-    //         { 
-    //             name: socialName,
-    //             link: socialLink
-    //         }
-    //     ])
-    //     setSocialName('')
-    //     setSocialLink('')
-    // }
 
     const handleSelectSocial = (item) => {
         let result = socials
@@ -98,19 +240,19 @@ const Banner05 = ({ Infor, Cart, ShoppingCart }) => {
     }
 
     useEffect(() => {
-        setImageQRcode(`http://localhost:3000/thong-tin-scan/${authCtx.user._id}`)
-    }, [data])
+        setImageQRcode(`http://localhost:3000/thong-tin-scan/${authCtx.user.id}`)
+    },[data])
 
     console.log("Infor Scan", Infor)
 
-    const addToCart = newData => {
+    const addToCart = (newData) => {
         dispatch({
             type: ADDPRODUCT,
             payload: newData
         })
-        const checkCart = localStorage.getItem("Cart")
-        if (checkCart) {
-            const parseCheckCart = JSON.parse(checkCart)
+        let checkCart = localStorage.getItem("Cart")
+        if(checkCart){
+            const parseCheckCart=JSON.parse(checkCart)
             parseCheckCart.push(newData)
             const jsonDataAddProduct = JSON.stringify(parseCheckCart)
             localStorage.setItem("Cart", jsonDataAddProduct)
@@ -125,21 +267,20 @@ const Banner05 = ({ Infor, Cart, ShoppingCart }) => {
 
     const buyInfoCard = () => {
         console.log("new data", newData);
-        let result = []
+        let result=[]
         result.push(newData)
         dispatch({
             type: SAVECART,
             payload: newData
         })
-
         localStorage.setItem("dataQR", JSON.stringify(newData))
         localStorage.setItem("shoppingSuccess", JSON.stringify(result))
         setShowModal(true)
     }
 
-    const all = (e, typeButton) => {
-        let data = onSubmitForm(e)
-        if (typeButton === 1) {
+    const all = (event, typeButton) => {
+        let data = onSubmitForm(event)
+        if(typeButton === 1) {
             addToCart(data)
         } else {
             setShowModal(true)
@@ -152,8 +293,8 @@ const Banner05 = ({ Infor, Cart, ShoppingCart }) => {
         return Math.random().toString(36).replace('0.',  '');
     }
 
-    const onSubmitForm = e => {
-        e.preventDefault()
+    const onSubmitForm = (event) => {
+        event.preventDefault()
         const newData = {
             id: randId(),
             nameUser: name,
@@ -162,9 +303,8 @@ const Banner05 = ({ Infor, Cart, ShoppingCart }) => {
             overview: overview,
             colorCard: selectedNameCard,
             qrImage: imageQRcode,
-            social: (listSocials[0].socialLink === "" ? [] : listSocials)
+            social: (socials[0].socialLink === "" ? [] : socials)
         }
-        console.log(newData)
         return newData
     }
 
